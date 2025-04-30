@@ -39,3 +39,13 @@ public class TaskInfoCfg
     public int vitality;                    //活跃度展示
 }
 
+public class QuestionCfg
+{
+    public int ID;
+    public string msg;
+    public string Aa;
+    public string Ab;
+    public string Ac;
+    public int right;
+}
+

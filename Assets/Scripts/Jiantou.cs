@@ -36,12 +36,12 @@ public class Jiantou : MonoBehaviour
     public int GetState()
     {
         int iRet = 0;
-        if (this.transform.localPosition.x >= 30)
+        if (this.transform.localPosition.x >= 20)
         {
             //Ô¶
             iRet = 1;
         }
-        else if (this.transform.localPosition.x <= -30)
+        else if (this.transform.localPosition.x <= -20)
         {
             //½ü
             iRet = 2;

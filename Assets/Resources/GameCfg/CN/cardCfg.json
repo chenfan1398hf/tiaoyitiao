@@ -1,0 +1,164 @@
+[
+  {
+    "ID": 1,
+    "xjNumber": 0,
+    "hpNumber": 1,
+    "gjNumber": 1,
+    "name": "企鹅",
+    "type": 0,
+    "imageId": 1
+  },
+  {
+    "ID": 2,
+    "xjNumber": 1,
+    "hpNumber": 3,
+    "gjNumber": 1,
+    "name": "烈焰先锋",
+    "type": 0,
+    "imageId": 2
+  },
+  {
+    "ID": 3,
+    "xjNumber": 1,
+    "hpNumber": 2,
+    "gjNumber": 2,
+    "name": "暗影猎手",
+    "type": 0,
+    "imageId": 3
+  },
+  {
+    "ID": 4,
+    "xjNumber": 2,
+    "hpNumber": 3,
+    "gjNumber": 2,
+    "name": "淡水鳄鱼",
+    "type": 0,
+    "imageId": 4
+  },
+  {
+    "ID": 5,
+    "xjNumber": 3,
+    "hpNumber": 4,
+    "gjNumber": 3,
+    "name": "冰霜守卫",
+    "type": 0,
+    "imageId": 5
+  },
+  {
+    "ID": 6,
+    "xjNumber": 4,
+    "hpNumber": 5,
+    "gjNumber": 4,
+    "name": "冰封雪人",
+    "type": 0,
+    "imageId": 6
+  },
+  {
+    "ID": 7,
+    "xjNumber": 4,
+    "hpNumber": 5,
+    "gjNumber": 4,
+    "name": "圣光骑士",
+    "type": 0,
+    "imageId": 7
+  },
+  {
+    "ID": 8,
+    "xjNumber": 5,
+    "hpNumber": 6,
+    "gjNumber": 6,
+    "name": "猛虎",
+    "type": 0,
+    "imageId": 8
+  },
+  {
+    "ID": 9,
+    "xjNumber": 6,
+    "hpNumber": 7,
+    "gjNumber": 6,
+    "name": "食人魔",
+    "type": 0,
+    "imageId": 9
+  },
+  {
+    "ID": 10,
+    "xjNumber": 6,
+    "hpNumber": 7,
+    "gjNumber": 6,
+    "name": "烈日行者",
+    "type": 0,
+    "imageId": 10
+  },
+  {
+    "ID": 11,
+    "xjNumber": 7,
+    "hpNumber": 8,
+    "gjNumber": 7,
+    "name": "暴风城勇士",
+    "type": 0,
+    "imageId": 11
+  },
+  {
+    "ID": 12,
+    "xjNumber": 7,
+    "hpNumber": 8,
+    "gjNumber": 7,
+    "name": "海巨人",
+    "type": 0,
+    "imageId": 12
+  },
+  {
+    "ID": 13,
+    "xjNumber": 8,
+    "hpNumber": 9,
+    "gjNumber": 8,
+    "name": "海怪",
+    "type": 0,
+    "imageId": 13
+  },
+  {
+    "ID": 14,
+    "xjNumber": 8,
+    "hpNumber": 9,
+    "gjNumber": 8,
+    "name": "格鲁尔",
+    "type": 0,
+    "imageId": 14
+  },
+  {
+    "ID": 15,
+    "xjNumber": 9,
+    "hpNumber": 12,
+    "gjNumber": 7,
+    "name": "绿龙",
+    "type": 0,
+    "imageId": 15
+  },
+  {
+    "ID": 16,
+    "xjNumber": 4,
+    "hpNumber": 0,
+    "gjNumber": 0,
+    "name": "抽卡",
+    "type": 1,
+    "imageId": 16
+  },
+  {
+    "ID": 17,
+    "xjNumber": 5,
+    "hpNumber": 0,
+    "gjNumber": 0,
+    "name": "buff",
+    "type": 2,
+    "imageId": 17
+  },
+  {
+    "ID": 18,
+    "xjNumber": 0,
+    "hpNumber": 0,
+    "gjNumber": 0,
+    "name": "心境补满",
+    "type": 3,
+    "imageId": 46
+  }
+]
