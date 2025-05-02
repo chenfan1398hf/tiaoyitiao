@@ -5,6 +5,7 @@ using UnityEngine;
 public class Box : MonoBehaviour
 {
     public int boxId = 0;
+    public GameObject txObj;
 
     // Start is called before the first frame update
     void Start()
@@ -27,7 +28,7 @@ public class Box : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             Debug.Log("´¥·¢");
-            GameManager.instance.OpenDatiPanel(boxId, this.gameObject);
+            GameManager.instance.OpenDatiPanel(boxId, this.gameObject, txObj);
         }
     }
 }

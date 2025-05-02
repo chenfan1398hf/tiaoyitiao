@@ -341,6 +341,7 @@ public class GameManager :MonoSingleton<GameManager>
     public void AddBox()
     {
         datiPanel.SetActive(false);
+        endPanel.SetActive(false);
         boxList.Clear();
         for (int i = 0; i < configMag.TaskInfoCfg.Count; i++)
         {
@@ -362,6 +363,7 @@ public class GameManager :MonoSingleton<GameManager>
         AddBox();
         playerObj.transform.localPosition = new Vector3(-7.12f, 0f, 0f);
         boxIndex = 0;
+        maxNumber = 0;
     }
     public void JumpPlayer()
     {
@@ -389,7 +391,10 @@ public class GameManager :MonoSingleton<GameManager>
     //打开答题界面
     private int duiDeNumber = 0;
     private GameObject xxObj;
-    public void OpenDatiPanel(int id, GameObject obj)
+    private GameObject xxtexiaoObj;
+    private int maxNumber = 0;
+    public GameObject endPanel;
+    public void OpenDatiPanel(int id, GameObject obj, GameObject texiaoObj)
     {
         datiPanel.SetActive(true);
         var cfg = configMag.GetLanguageCfgByKey(id);
@@ -399,6 +404,7 @@ public class GameManager :MonoSingleton<GameManager>
         datiPanel.transform.Find("Image/Button3/Text (Legacy)").GetComponent<Text>().text = cfg.Ac;
         duiDeNumber = cfg.right;
         xxObj = obj;
+        xxtexiaoObj = texiaoObj;
     }
     public void ButtonClick(int _index)
     {
@@ -406,10 +412,26 @@ public class GameManager :MonoSingleton<GameManager>
         {
             datiPanel.SetActive(false);
             xxObj.SetActive(false);
+            xxtexiaoObj.SetActive(true);
+            maxNumber++;
+            if (maxNumber >= configMag.TaskInfoCfg.Count)
+            {
+                endPanel.SetActive(true);
+            }
         }
         else
         {
             BeginGame();
         }
+    }
+    public void EndGame()
+    {
+        // 在编辑器中停止播放模式
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+        // 在构建的应用中退出
+        Application.Quit();
+#endif
     }
 }
