@@ -403,34 +403,7 @@ public class PlayerData
     //更新玩家任务状态
     public void TaskUpdateState(string taskId, TaskInfo playerTaskInfo)
     {
-        TaskInfo taskInfo;
-        if (!palyerTaskDic.TryGetValue(taskId, out taskInfo))
-        {
-            return;
-        }
-        if (taskInfo.taskState != 0)
-        {
-            return;
-        }
-        long targetNumber = 0;
-        foreach (var item in GameManager.instance.configMag.TaskInfoCfg)
-        {
-            if (item.ID.ToString() == taskId)
-            {
-                targetNumber = item.targetNumber;
-            }
-        }
-        if (targetNumber == 0)
-        {
-            return;
-        }
-        long Number = targetNumber;
-        if (playerTaskInfo.taskTargetNumber >= Number)
-        {
-            playerTaskInfo.taskState = 1;
-        }
-
-        return;
+       
     }
     //获取玩家完成任务状态
     public bool GetTaskState(string taskId)

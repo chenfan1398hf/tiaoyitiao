@@ -336,15 +336,18 @@ public class GameManager :MonoSingleton<GameManager>
     public int boxIndex = 0;
     public GameObject playerObj;
     public Jiantou jiantou;
+    public GameObject datiPanel;
     //生成箱子
     public void AddBox()
     {
+        datiPanel.SetActive(false);
         boxList.Clear();
-        for (int i = 0; i < 100; i++)
+        for (int i = 0; i < configMag.TaskInfoCfg.Count; i++)
         {
             var obj = AddPrefab("Box", GameObject.Find("Boxs").transform);
+            obj.transform.Find("xx").GetComponent<Box>().InitBox(i+1);
             obj.transform.localPosition = Vector3.zero;
-            float randx = Util.randomFloat(4f, 5f);
+            float randx = Util.randomFloat(4.5f, 5f);
             float randy = Util.randomFloat(-1f, 1f);
             obj.transform.localPosition += new Vector3(randx * i, randy, 0);
             boxList.Add(obj);
@@ -381,6 +384,32 @@ public class GameManager :MonoSingleton<GameManager>
             vector3.x -= 2f;
             playerObj.transform.DOJump(vector3, 3, 1, 1f).SetEase(Ease.Linear);
             boxIndex++;
+        }
+    }
+    //打开答题界面
+    private int duiDeNumber = 0;
+    private GameObject xxObj;
+    public void OpenDatiPanel(int id, GameObject obj)
+    {
+        datiPanel.SetActive(true);
+        var cfg = configMag.GetLanguageCfgByKey(id);
+        datiPanel.transform.Find("Image/Text (Legacy)").GetComponent<Text>().text = cfg.msg;
+        datiPanel.transform.Find("Image/Button1/Text (Legacy)").GetComponent<Text>().text = cfg.Aa;
+        datiPanel.transform.Find("Image/Button2/Text (Legacy)").GetComponent<Text>().text = cfg.Ab;
+        datiPanel.transform.Find("Image/Button3/Text (Legacy)").GetComponent<Text>().text = cfg.Ac;
+        duiDeNumber = cfg.right;
+        xxObj = obj;
+    }
+    public void ButtonClick(int _index)
+    {
+        if (_index == duiDeNumber)
+        {
+            datiPanel.SetActive(false);
+            xxObj.SetActive(false);
+        }
+        else
+        {
+            BeginGame();
         }
     }
 }
