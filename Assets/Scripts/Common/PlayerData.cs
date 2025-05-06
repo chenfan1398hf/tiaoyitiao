@@ -30,6 +30,10 @@ public class PlayerData
     public bool playerAudio1;                           //音效开关
     public bool playerAudio2;                           //音乐开关
 
+    public string playerName = string.Empty;
+    public int timuIndex = 0;
+    public int countDownTime = 3600;
+
 
     public Dictionary<String, TaskInfo> palyerTaskDic = new Dictionary<String, TaskInfo>();                         //任务数据
 

@@ -61,7 +61,7 @@ public class GameManager : MonoSingleton<GameManager>
 
         if (TimeNumber % 10 == 0)
         {
-
+            UpdateTime();
         }
         if (TimeNumber % 20 == 0)
         {
@@ -333,10 +333,11 @@ public class GameManager : MonoSingleton<GameManager>
     }
 
     public List<GameObject> boxList = new List<GameObject>();
-    public int boxIndex = 0;
     public GameObject playerObj;
     public Jiantou jiantou;
     public GameObject datiPanel;
+    public GameObject namePanel;
+    public GameObject gamePanel;
     public Vector3 shanggeVec = new Vector3(-7.12f, -1.9f, 0f);
     //生成箱子
     public void AddBox()
@@ -344,6 +345,7 @@ public class GameManager : MonoSingleton<GameManager>
         datiPanel.SetActive(false);
         endPanel.SetActive(false);
         boxList.Clear();
+        float oldX = -7.12f;
         for (int i = 0; i < configMag.TaskInfoCfg.Count; i++)
         {
             var obj = AddPrefab("Box", GameObject.Find("Boxs").transform);
@@ -351,8 +353,13 @@ public class GameManager : MonoSingleton<GameManager>
             obj.transform.localPosition = Vector3.zero;
             float randx = Util.randomFloat(4.5f, 5f);
             float randy = Util.randomFloat(-1f, 1f);
-            obj.transform.localPosition += new Vector3(randx * i, randy, 0);
+            oldX += randx;
+            obj.transform.localPosition += new Vector3(oldX, randy, 0);
             boxList.Add(obj);
+            if (i < playerData.timuIndex)
+            {
+                obj.transform.Find("xx").gameObject.SetActive(false);
+            }
         }
     }
     public void BeginGame()
@@ -362,9 +369,19 @@ public class GameManager : MonoSingleton<GameManager>
             Destroy(item);
         }
         AddBox();
-        playerObj.transform.localPosition = new Vector3(-7.12f, 0f, 0f);
-        boxIndex = 0;
+        //playerObj.transform.localPosition = new Vector3(-7.12f, 0f, 0f);
+        //boxIndex = playerData.timuIndex;
         maxNumber = 0;
+        CreatNamePanel();
+        if (playerData.timuIndex == 0)
+        {
+            playerObj.transform.localPosition = new Vector3(-7.12f, 0f, 0f);
+        }
+        else
+        {
+            playerObj.transform.position = boxList[playerData.timuIndex - 1].transform.Find("Pront").position;
+        }
+       
     }
     public void JumpPlayer()
     {
@@ -372,23 +389,24 @@ public class GameManager : MonoSingleton<GameManager>
         shanggeVec = playerObj.transform.position;
         if (state == 3)
         {
-            playerObj.transform.DOJump(boxList[boxIndex].transform.Find("Pront").position, 3, 1, 1f).SetEase(Ease.Linear);
-            boxIndex++;
+            playerObj.transform.DOJump(boxList[playerData.timuIndex].transform.Find("Pront").position, 3, 1, 1f).SetEase(Ease.Linear);
+            playerData.timuIndex++;
         }
         else if (state == 1)
         {
-            Vector3 vector3 = boxList[boxIndex].transform.Find("Pront").position;
+            Vector3 vector3 = boxList[playerData.timuIndex].transform.Find("Pront").position;
             vector3.x += 2f;
             playerObj.transform.DOJump(vector3, 3, 1, 1f).SetEase(Ease.Linear);
-            boxIndex++;
+            playerData.timuIndex++;
         }
         else if (state == 2)
         {
-            Vector3 vector3 = boxList[boxIndex].transform.Find("Pront").position;
+            Vector3 vector3 = boxList[playerData.timuIndex].transform.Find("Pront").position;
             vector3.x -= 2f;
             playerObj.transform.DOJump(vector3, 3, 1, 1f).SetEase(Ease.Linear);
-            boxIndex++;
+            playerData.timuIndex++;
         }
+        
     }
     //打开答题界面
     private int duiDeNumber = 0;
@@ -417,7 +435,7 @@ public class GameManager : MonoSingleton<GameManager>
             xxObj.SetActive(false);
             xxtexiaoObj.SetActive(true);
             maxNumber++;
-            if (maxNumber >= configMag.TaskInfoCfg.Count)
+            if (playerData.timuIndex >= configMag.TaskInfoCfg.Count)
             {
                 endPanel.SetActive(true);
             }
@@ -441,7 +459,33 @@ public class GameManager : MonoSingleton<GameManager>
     public void GetShangCiVec()
     {
         playerObj.transform.DOJump(shanggeVec, 3, 1, 1f).SetEase(Ease.Linear);
-        boxIndex--;
+        playerData.timuIndex--;
         datiPanel.SetActive(false);
+    }
+    //输入名字界面
+    public void CreatNamePanel()
+    {
+        if (playerData.playerName == string.Empty)
+        {
+            namePanel.SetActive(true);
+        }
+    }
+    public void GetName(string _name)
+    {
+        playerData.playerName = _name;
+    }
+    public void QueRenName()
+    {
+        namePanel.SetActive(false);
+    }
+    //刷新倒计时
+    public void UpdateTime()
+    {
+        playerData.countDownTime--;
+        gamePanel.transform.Find("Text (Legacy)").GetComponent<Text>().text = "倒计时：" + DateTimeUtil.secondToHHMMSS(playerData.countDownTime);
+        gamePanel.transform.Find("Text (Legacy) (1)").GetComponent<Text>().text = "姓名：" + playerData.playerName;
+
+        endPanel.transform.Find("Image/Text (Legacy) (1)").GetComponent<Text>().text = "倒计时：" + DateTimeUtil.secondToHHMMSS(playerData.countDownTime);
+        endPanel.transform.Find("Image/Text (Legacy) (2)").GetComponent<Text>().text = "姓名：" + playerData.playerName;
     }
 }
