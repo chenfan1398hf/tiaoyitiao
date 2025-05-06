@@ -20,7 +20,8 @@ public class Player : MonoBehaviour
     {
         if (collision.gameObject.tag == "Finish")
         {
-            GameManager.instance.BeginGame();
+            //GameManager.instance.BeginGame();
+            GameManager.instance.GetShangCiVec();
         }
     }
 }

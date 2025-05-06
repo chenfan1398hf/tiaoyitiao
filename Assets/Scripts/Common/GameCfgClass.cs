@@ -46,6 +46,7 @@ public class QuestionCfg
     public string Aa;
     public string Ab;
     public string Ac;
+    public string Ad;
     public int right;
 }
 

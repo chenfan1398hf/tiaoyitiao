@@ -9,7 +9,7 @@ using Spine.Unity;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
 
-public class GameManager :MonoSingleton<GameManager>
+public class GameManager : MonoSingleton<GameManager>
 {
     #region 构造函数及其变量
     public GameManager()
@@ -61,7 +61,7 @@ public class GameManager :MonoSingleton<GameManager>
 
         if (TimeNumber % 10 == 0)
         {
-       
+
         }
         if (TimeNumber % 20 == 0)
         {
@@ -337,6 +337,7 @@ public class GameManager :MonoSingleton<GameManager>
     public GameObject playerObj;
     public Jiantou jiantou;
     public GameObject datiPanel;
+    public Vector3 shanggeVec = new Vector3(-7.12f, -1.9f, 0f);
     //生成箱子
     public void AddBox()
     {
@@ -346,7 +347,7 @@ public class GameManager :MonoSingleton<GameManager>
         for (int i = 0; i < configMag.TaskInfoCfg.Count; i++)
         {
             var obj = AddPrefab("Box", GameObject.Find("Boxs").transform);
-            obj.transform.Find("xx").GetComponent<Box>().InitBox(i+1);
+            obj.transform.Find("xx").GetComponent<Box>().InitBox(i + 1);
             obj.transform.localPosition = Vector3.zero;
             float randx = Util.randomFloat(4.5f, 5f);
             float randy = Util.randomFloat(-1f, 1f);
@@ -368,6 +369,7 @@ public class GameManager :MonoSingleton<GameManager>
     public void JumpPlayer()
     {
         int state = jiantou.GetState();
+        shanggeVec = playerObj.transform.position;
         if (state == 3)
         {
             playerObj.transform.DOJump(boxList[boxIndex].transform.Find("Pront").position, 3, 1, 1f).SetEase(Ease.Linear);
@@ -402,6 +404,7 @@ public class GameManager :MonoSingleton<GameManager>
         datiPanel.transform.Find("Image/Button1/Text (Legacy)").GetComponent<Text>().text = cfg.Aa;
         datiPanel.transform.Find("Image/Button2/Text (Legacy)").GetComponent<Text>().text = cfg.Ab;
         datiPanel.transform.Find("Image/Button3/Text (Legacy)").GetComponent<Text>().text = cfg.Ac;
+        datiPanel.transform.Find("Image/Button4/Text (Legacy)").GetComponent<Text>().text = cfg.Ad;
         duiDeNumber = cfg.right;
         xxObj = obj;
         xxtexiaoObj = texiaoObj;
@@ -421,7 +424,8 @@ public class GameManager :MonoSingleton<GameManager>
         }
         else
         {
-            BeginGame();
+            //BeginGame();
+            GetShangCiVec();
         }
     }
     public void EndGame()
@@ -433,5 +437,11 @@ public class GameManager :MonoSingleton<GameManager>
         // 在构建的应用中退出
         Application.Quit();
 #endif
+    }
+    public void GetShangCiVec()
+    {
+        playerObj.transform.DOJump(shanggeVec, 3, 1, 1f).SetEase(Ease.Linear);
+        boxIndex--;
+        datiPanel.SetActive(false);
     }
 }
