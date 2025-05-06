@@ -338,6 +338,7 @@ public class GameManager : MonoSingleton<GameManager>
     public GameObject datiPanel;
     public GameObject namePanel;
     public GameObject gamePanel;
+    private bool isJump = false;
     public Vector3 shanggeVec = new Vector3(-7.12f, -1.9f, 0f);
     //生成箱子
     public void AddBox()
@@ -385,6 +386,11 @@ public class GameManager : MonoSingleton<GameManager>
     }
     public void JumpPlayer()
     {
+        if (isJump)
+        {
+            return;
+        }
+        isJump = true;
         int state = jiantou.GetState();
         shanggeVec = playerObj.transform.position;
         if (state == 3)
@@ -406,7 +412,11 @@ public class GameManager : MonoSingleton<GameManager>
             playerObj.transform.DOJump(vector3, 3, 1, 1f).SetEase(Ease.Linear);
             playerData.timuIndex++;
         }
-        
+        this.Invoke("EndJump", 3f);
+    }
+    private void EndJump()
+    {
+        isJump = false;
     }
     //打开答题界面
     private int duiDeNumber = 0;
